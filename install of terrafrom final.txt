@@ -1,0 +1,20 @@
+Exp5 (To understand terraform lifecycle, core concepts/terminologies and install
+ it on a Linux Machine.)
+
+1. To download go to site https://www.terraform.io/downloads.html Select the
+appropriate package for your operating system and architecture.
+2. unzip the archive by using below command:
+○ Unzip terraform_1.0.3_linux_amd64.zip
+○ cd terraform_1.0.3_linux_amd64/
+○ sudo mv terraform /usr/local/bin
+○ terraform -v
+
+ELSE
+
+https://developer.hashicorp.com/terraform/install
+
+1] Cd Downloads
+2]unzip terraform_1.9.3_linux_amd64.zip
+3] cd terraform_1.9.3_linux_amd64
+4]sudo mv terraform /usr/local/bin/
+5]terraform -v

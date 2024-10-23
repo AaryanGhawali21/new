@@ -1,0 +1,117 @@
+Exp 6 (To Build, change, and destroy AWS infrastructure Using Terraform)
+
+
+1. Terminal Commands
+
+○ sudo apt-get install curl
+○ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o
+"awscliv2.zip"
+
+○ sudo apt install unzip
+
+○ sudo unzip awscliv2.zip
+
+○ sudo ./aws/install
+
+○ aws –version
+
+2. Create a new access key if you don't have one.Login to AWS console, click on
+username and go to My security credentials.
+Continue on security credentials, click on access keys
+
+3. Perform below commands in Linux where you have installed Terraform:
+
+○ aws configure
+
+○ cd ~
+
+○ mkdir project-terraform
+
+○ cd project-terraform
+
+○ sudo nano variables.tf
+
+4. Create Key Pair , Give name to key pair file as terraform
+
+5. Use your Region and Key name in variable.tf as shown and provide instance
+type which you want to create in variables.tf
+
+Variables.tf:
+
+variable "aws_region" {
+description = "The AWS region to create things in."
+default = "ap-south-1"
+}
+variable "key_name" {
+description = "SSH keys to connect to ec2 instance"
+default = "terraform"
+}
+variable "instance_type" {
+description = "instance type for ec2"
+default = "t2.micro"
+}
+
+
+6. Create main.tf file by sudo nano main.tf
+
+
+provider "aws" {
+region = var.aws_region
+}
+#Create security group with firewall rules
+resource "aws_security_group" "security_jenkins_port" {
+name = "security_jenkins_port"
+description = "security group for jenkins"
+ingress {
+from_port = 8080
+to_port = 8080
+protocol = "tcp"
+cidr_blocks = ["0.0.0.0/0"]
+}
+ingress {
+from_port = 22
+to_port = 22
+protocol = "tcp"
+cidr_blocks = ["0.0.0.0/0"]
+}
+# outbound from jenkis server
+Department of Information Technology | APSIT
+egress {
+from_port = 0
+to_port = 65535
+protocol = "tcp"
+cidr_blocks = ["0.0.0.0/0"]
+}
+tags= {
+Name = "security_jenkins_port"
+}
+}
+resource "aws_instance" "myFirstInstance" {
+ami = "ami-0b9064170e32bde34"
+key_name = var.key_name
+instance_type = var.instance_type
+security_groups= [ "security_jenkins_port"]
+tags= {
+Name = "jenkins_instance"
+}
+}
+# Create Elastic IP address
+resource "aws_eip" "myFirstInstance" {
+vpc = true
+instance = aws_instance.myFirstInstance.id
+Department of Information Technology | APSIT
+tags= {
+Name = "jenkins_elstic_ip"
+}
+}
+
+7. Terminal:
+
+○ terraform init
+○ terraform plan
+○ terraform apply (Provide the value as Yes for applying terraform)
+
+8. Now login to EC2 console, to see the new instances up and running, you can
+see Jenkins_instance is up and running which we deploy from terraform.
+
+9. terraform destroy (in terminal, to destroy terraform)

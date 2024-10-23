@@ -1,0 +1,64 @@
+Exp7 (To understand Static Analysis SAST process and learn to integrate .
+Jenkins SAST to SonarQube/GitLab)
+Here are the sequential steps for installing and configuring a Jenkins and SonarQube
+CI/CD environment using Docker containers, along with configuring Jenkins with the
+SonarQube Scanner plugin:
+
+
+Steps to Install and Configure Jenkins and SonarQube
+
+1. Install Jenkins
+- Add the Jenkins GPG key:
+wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add
+-
+- Append the Jenkins Debian package repository to sources.list.
+- Update the package list:
+sudo apt update
+- Install Jenkins:
+sudo apt install jenkins
+- Start Jenkins:
+sudo systemctl start jenkins
+- Verify Jenkins is running:
+sudo systemctl status jenkins
+- Allow traffic on port 8080:
+sudo ufw allow 8080
+
+2. Set Up Jenkins
+- Open Jenkins in a web browser: `http://your_server_ip_or_domain:8080`
+- Retrieve the initial password:
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+- Paste the password to unlock Jenkins.
+- Install suggested plugins.
+- Set up the first administrative user and click Save and Finish.
+
+3. Install and Configure SonarQube
+- Run SonarQube using Docker:
+sudo docker run -d -p 9000:9000 sonarqube
+- Access SonarQube in a web browser: `http://localhost:9000`
+- Log in using default credentials (admin:admin).
+
+4. Generate SonarQube User Token
+- Navigate to Administration > User > My Account > Security.
+- Generate a new token and copy it.
+
+5. Configure Jenkins with SonarQube Scanner Plugin
+- Install the SonarQube Scanner plugin:
+- Go to Manage Jenkins > Plugin Manager > Available.
+- Search for "SonarQube Scanner" and install it.
+- Configure SonarQube server:
+- Go to Manage Jenkins > Configure System > SonarQube Server.
+- Add SonarQube with the Installation Name and Server URL.
+- Add the Authentication token in Jenkins Credential Manager.
+- Set up SonarQube Scanner:
+- Go to Manage Jenkins > Global Tool Configuration > SonarQube Scanner.
+- Click "Add SonarQube Scanner" and choose the installer (e.g., from Maven
+Central).
+
+6. Integrate SonarQube Scanner in Jenkins Pipeline
+- Modify the Jenkinsfile to include a new stage for SonarQube scanning.
+
+7. Set Up GitHub Configuration in Jenkins
+- Configure Git cloning into Jenkins as needed.
+
+8. Build the GitHub Repository in Jenkins
+- Execute the build and ensure successful integration with SonarQube.

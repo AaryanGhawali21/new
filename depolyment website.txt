@@ -1,0 +1,96 @@
+1]search S3 bucket
+2]create bucket
+3] 1 bucket [source bucket]
+ --name : my-source-bucket-a21
+4]2nd bucket now :
+  name: my-source-bucket-a21
+Note :uncheck block public access and tick below that acknowledgement one.
+
+5] Now 2 bucket are created
+6]now duplicate the aws page.
+7] search codebuild now
+8] create a project
+  - name :my-first-adlproject1
+9] source = GitHub
+  --connect GitHub -- https://github.com/AaryanGhawali21/Car-pwa-deploy-on-aws.git
+
+10]new service role --
+codebuild-my-first-adlproject1-service-role
+
+11] project is created now
+
+12] now create a pipeline
+
+- search CodePipeline
+- Create Pipeline
+ name : my-first-pipeline1
+
+13] Click on Advance setting now 
+     -custom location
+     - select source bucket
+       my-source-bucket-a21
+14] click next
+    
+    -source provider - GitHub(Version1)
+    - Now Connect to GitHub
+    - Select Repository  --  AaryanGhawali21/Car-pwa-deploy-on-aws
+ 15] Then Next
+    --Other build providers [AWSCODEBUILD]
+    -- Project Name:my-first-adlproject1
+
+16] Then Next
+   Deploy Provider - AmazonS3
+   Select Deploy Bucket -- my-deploy-bucket-a21
+   And check EXTRACT FILE BEFORE DEPOLY
+
+17] Then next and Create Pipeline
+    After that source will get Green Tick Rest all red
+18]Go to Duplicate page of my-firstadlproject1
+    -And Click on Service Role
+  GO TO PERMISSION NOW AND CLICK ON ADD PERMISSION
+
+19] NOW ADD  AmazonS3fullaccess Permission
+
+20] THE GO TO DEPLOYMENTBUCKET IN S3
+   AND ENTER IN DEPOLY AND SOURCE BUCKET ONECE AND COME OUT
+21]THEN GO TO PIPELINE PAGE [MY-FIRST-PIENPLE.....WLAA]
+  AND RETRY STAGE
+22] THEN AGAIN TO TO DEPLOY BUCKET IN S3 AND REFRESH IT U WILL ABLE TO SEE ALL FILES
+23]NOW WE HAVE TO HOST A WEBSITE
+24]WEBISTE HOST
+  
+-GO TO MYDEPOLY BUCKET OF S3
+- THEN GO TO PROPERTIES
+ -Then go to static website hosting and enable it
+ -Index.html give name and save changes
+ - Then scroll down in properties and get Bucket website endpoint
+25] Still it will not open
+    Because of permission not given
+25]Go to permission Now
+  --Edit Bucket policy
+   and add 
+this
+
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": [
+                "s3:GetObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::Bucket-Name/*"
+            ]
+        }
+    ]
+}
+[copy as plain text]
+ take bucket name from up as --  my-deploy-bucket-a21 [Ans Save Changes]
+
+
+finally website has been hosted
+

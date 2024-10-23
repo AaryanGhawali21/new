@@ -1,0 +1,107 @@
+1]Go to Lambda
+2]choose region north virgina default
+3]create lambda function
+4] function name = sum
+   Runtime = python 3.8
+   [lambda function created successfully]
+5] write a code in it
+import json
+
+def lambda_handler(event, context):
+    first_num = 500
+    second_num = 600
+    sum = first_num + second_num
+    return sum
+6] then configure it by clicking on test ^ symbol
+- create new event
+- Event name = mytest
+- and keep event Json code in it blank
+{ 
+}
+save it and come out
+7] click on deploy then
+8]Then click on test
+
+Second One
+
+
+1] main code
+
+
+def lambda_handler(event, context):
+    if event["name"] == "aaryan":
+        return "APSIT"
+    else:
+        return {
+            "statusCode": 400,
+            "body": "Name not matched"
+        }
+
+2] edit previous event 
+3] json file write
+   {
+      "name" : "aaryan"
+             }
+4]save it and deploy it
+5] output 
+
+
+Exp11 (To understand AWS Lambda, its workflow, various functions and create
+your first Lambda functions using Python / Java / Nodejs)
+
+Here are the sequential steps for creating your first AWS Lambda function using
+Python:
+### Steps to Create Your First Lambda 
+
+
+Function Using Python
+
+1. Open AWS Console
+
+- Search for the Lambda service and open the home screen of Lambda.
+
+2. Choose Region
+- Select the region in which you want to create the Lambda function (as it is
+region-specific).
+
+3. Create Lambda Function
+
+- Name the function "sum."
+- Select the latest version of Python as the runtime.
+- Choose a role with basic Lambda permissions to allow CloudWatch for
+monitoring.
+
+4. Verify Creation
+- Confirm that the Lambda "sum" function is created successfully.
+
+5. Write Sample Python Code
+- Implement the code for the sum of two numbers.
+
+import json
+def lambda_handler(event, context):
+first_number = 100
+second_number = 200
+sum = first_number + second_number
+return sum
+
+6. Configure Test Event
+- Create a test event in JSON format.
+
+7. Write Second Sample Python Code
+
+- Implement a second sample Python code that includes an if condition.
+
+def lambda_handler (event, context):
+if event["name"] == "vishal":
+return "apsit"
+
+8. Configure Test Event for Second Code
+- Set up a test event for the second sample code, ensuring it returns a value as "apsit"
+if conditions are met.
+
+{
+“name”: "Aaryan"
+}
+
+
+

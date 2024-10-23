@@ -1,0 +1,60 @@
+Exp1 (Setup AWS Cloud9 IDE)
+
+
+1. Login with your AWS account.
+
+2. Navigate to Cloud 9 service from Developer tools section.
+
+3. Click on Create Enviornment
+
+4. Provide name for the Enviornment (WebAppIDE) and click on next.
+
+5. Keep all the Default settings
+
+6. Review the Enviornment name and Settings and click on Create Enviornment
+
+7. Till that time open IAM Identity and Access Management in order to Add user
+In other tab.
+
+8. Add user provide manual password if you want and click on Next permission
+tab.
+
+9. Provide group name and click on create group.
+
+10.Review for user settings and click on create user.
+
+11. Navigate to user Groups from left pane in IAM.
+
+12. click on your group name which you have created and navigate to permission
+tab
+
+13.Now click on Add permission and select Attach Policy after that search for
+Cloud9 related policy and select Awscloud9EnviornmentMember policy and
+add it.
+
+14. now we move towards our cloud9 IDE Enviornment tab it shows as shown
+
+15.Enter commands on terminal:
+a. git –version
+b. aws iam get-user
+
+16. create new file or choose from template, here m opting html file to collaborate.
+
+17.Edit html file and save it
+
+18. now in order to share this file to collaborate with other members of your team
+click on
+
+19.Share option on Right Pane and username which you created in IAM before
+into Invite members and enable permission as RW (Read and Write) and click
+on Done..
+
+20.Now Open your Browsers Incognito Window and login with IAM user which
+you configured before.
+
+21.After Successful login with IAM user open Cloud9 service from dashboard
+services and click on shared with you enviornment to collaborate.
+
+22.Click on Open IDE you will same interface as your other member
+
+23.Use chat option to chat with members or edit the html file shared.

@@ -1,0 +1,60 @@
+Exp12 (To create a Lambda function which will log “An Image has been added”
+once you add an object to a specific bucket in S3)
+
+Steps to Use AWS Lambda with Amazon S3
+
+1. Create S3 Bucket
+
+○ Go to AWS Services and select S3 in the storage section.
+
+○ Click "Create bucket" to store uploaded files.
+
+○ Enter the Bucket name and select the Region.
+
+○ Click the "Create" button.
+
+○ Click the bucket name to upload files.
+
+
+
+2. Create Role that Works with S3 and Lambda
+
+○ Go to AWS Services and select IAM.
+○ Click on "Roles" and then "Create role."
+○ Choose the service that will use this role (select Lambda) and click
+"Next: Permissions."
+○ Add permissions: AmazonS3FullAccess, AWSLambdaFullAccess,
+CloudWatchFullAccess, and click "Next: Tags."
+○ Enter the Role name and description, then click "Create Role."
+
+3. Create Lambda Function and Add S3 Trigger
+
+○ Go to AWS Services and select Lambda.
+○ Click "Create function," enter a name, choose the Runtime, and select
+the Role.
+○ Click "Create function."
+○ Choose "Add trigger" and select S3.
+○ Enter details, such as Prefix and File pattern (e.g., for .jpg files), then
+click "Add."
+
+○ Use the online editor to add code to handle S3 events.
+
+exports.handler = function(event, context, callback) {
+    console.log("Incoming Event: ", event);
+    const bucket = event.Records[0].s3.bucket.name;
+    const filename = decodeURIComponent(event.Records[0].s3.object.key.replace(/\+/g,''));
+    const message = `An Image has been added - ${bucket} -> ${filename}`;
+    console.log(message);
+    callback(null, message);
+};
+
+
+○ Save changes.
+
+4. Test the Lambda Function
+
+○ Open the S3 bucket created earlier.
+○ Upload a file (e.g., an image) to the bucket.
+○ To check the trigger details, go to AWS Services and select CloudWatch.
+○ Open the logs for the Lambda function to see the output indicating the
+file was uploaded
